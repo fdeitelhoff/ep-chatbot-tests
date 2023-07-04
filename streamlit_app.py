@@ -167,7 +167,7 @@ qa_chain = ConversationalRetrievalChain.from_llm(
 
 # import sys
 
-chat_history = []
+chat_history = [1]
 
 add_selectbox = st.sidebar.selectbox(
     "Historie",
