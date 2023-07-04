@@ -167,11 +167,12 @@ qa_chain = ConversationalRetrievalChain.from_llm(
 
 # import sys
 
-chat_history = [1]
+chat_history = []
+chat_history_display = []
 
 add_selectbox = st.sidebar.selectbox(
     "Historie",
-    chat_history
+    chat_history_display
 )
 
 with st.form('my_form'):
@@ -181,6 +182,7 @@ with st.form('my_form'):
     result = qa_chain({'question': text, 'chat_history': chat_history})
     st.write(result['answer'])
     chat_history.append((text, result['answer']))
+    chat_history_display.append('Frage: '+ text)
 
 # while True:
 #     # this prints to the terminal, and waits to accept an input from the user
