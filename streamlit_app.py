@@ -103,9 +103,9 @@ text_splitter = RecursiveCharacterTextSplitter(
 from langchain.document_loaders import Docx2txtLoader
 
 loader = Docx2txtLoader("data/test.docx")
-st.write(loader)
+# st.write(loader)
 data = loader.load()
-st.write(data)
+st.write(data[0].page_content)
 
 
 from langchain.embeddings import OpenAIEmbeddings
