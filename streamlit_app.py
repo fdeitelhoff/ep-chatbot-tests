@@ -175,8 +175,8 @@ with st.form('my_form'):
  submitted = st.form_submit_button('Submit')
  if submitted:
     result = qa_chain({'question': text, 'chat_history': chat_history})
-    st.write('Answer: ' + result['answer'])
-    chat_history.append((query, result['answer']))
+    st.write(result['answer'])
+    chat_history.append((text, result['answer']))
 
 # while True:
 #     # this prints to the terminal, and waits to accept an input from the user
