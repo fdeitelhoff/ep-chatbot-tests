@@ -1,9 +1,9 @@
 import streamlit as st
 from langchain.llms import OpenAI
 
-st.title('🎈 App Name')
+st.title('Chatbot Example for Documents')
 
-st.write('Ich bin eine Teständerung!')
+# st.write('Ich bin eine Teständerung!')
 
 from dotenv import load_dotenv,find_dotenv
 load_dotenv(find_dotenv())
@@ -168,7 +168,7 @@ qa_chain = ConversationalRetrievalChain.from_llm(
 # import sys
 
 chat_history = []
-chat_history_display = []
+# chat_history_display = []
 
 # add_selectbox = st.sidebar.selectbox(
 #    "Historie",
@@ -181,8 +181,9 @@ with st.form('my_form'):
  if submitted:
     result = qa_chain({'question': text, 'chat_history': chat_history})
     st.write(result['answer'])
-    st.write(result)
+    # st.write(result)
     chat_history.append((text, result['answer']))
+    print(chat_history)
     # chat_history_display.append('Frage: '+ text)
 
 # while True:
