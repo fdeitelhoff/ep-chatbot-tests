@@ -108,7 +108,7 @@ loader = Docx2txtLoader("data/test.docx")
 data = loader.load()
 # st.write(data[0].page_content)
 
-text_splitter = CharacterTextSplitter(chunk_size=700, chunk_overlap=100)
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 documents = text_splitter.split_documents(data)
 st.write(documents[0])
 
@@ -169,10 +169,12 @@ qa_chain = ConversationalRetrievalChain.from_llm(
 
 chat_history = []
 
+st.sidebar.write(chat_history)
+
 
 with st.form('my_form'):
- text = st.text_area('Enter text:', 'Deine Frage')
- submitted = st.form_submit_button('Submit')
+ text = st.text_area('Deine Frage', '...')
+ submitted = st.form_submit_button('Fragen')
  if submitted:
     result = qa_chain({'question': text, 'chat_history': chat_history})
     st.write(result['answer'])
