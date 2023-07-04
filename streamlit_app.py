@@ -100,6 +100,14 @@ texts = text_splitter.create_documents([explanation])
 st.write(texts)
 # Import and instantiate OpenAI embeddings
 
+from langchain.document_loaders import Docx2txtLoader
+
+loader = Docx2txtLoader("data/test.docx")
+st.write(loader)
+data = loader.load()
+st.write(data)
+
+
 from langchain.embeddings import OpenAIEmbeddings
 
 embeddings = OpenAIEmbeddings()
@@ -107,9 +115,11 @@ embeddings = OpenAIEmbeddings()
 
 # Turn the first text chunk into a vector with the embedding
 
-query_result = embeddings.embed_query(texts[0].page_content)
+query_result = embeddings.embed_query(data[0].page_content)
 print(query_result)
 st.write(query_result)
+
+
 
 # Do a simple vector similarity search
 
@@ -135,5 +145,5 @@ agent_executor = create_python_agent(
 
 # Execute the Python agent
 
-agent_executor.run("Find the roots (zeros) if the quadratic function 3 * x**2 + 2*x -1")
-
+test = agent_executor.run("Find the roots (zeros) if the quadratic function 3 * x**2 + 2*x -1")
+st.write(test)
