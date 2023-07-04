@@ -32,14 +32,14 @@ from langchain.schema import (
 from langchain.chat_models import ChatOpenAI
      
 
-chat = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.3)
-messages = [
-    SystemMessage(content="You are an expert data scientist"),
-    HumanMessage(content="Write a Python script that trains a neural network on simulated data ")
-]
-response=chat(messages)
+#chat = ChatOpenAI(model_name="gpt-3.5-turbo",temperature=0.3)
+#messages = [
+#    SystemMessage(content="You are an expert data scientist"),
+#    HumanMessage(content="Write a Python script that trains a neural network on simulated data ")
+#]
+#response=chat(messages)
 
-print(response.content,end='\n')
+#print(response.content,end='\n')
 
 # Import prompt and define PromptTemplate
 
@@ -101,7 +101,7 @@ texts = text_splitter.create_documents([explanation])
 
 from langchain.embeddings import OpenAIEmbeddings
 
-embeddings = OpenAIEmbeddings(model_name="ada")
+embeddings = OpenAIEmbeddings()
      
 
 # Turn the first text chunk into a vector with the embedding
