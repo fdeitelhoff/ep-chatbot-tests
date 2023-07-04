@@ -174,7 +174,7 @@ with st.form('my_form'):
  text = st.text_area('Enter text:', 'Deine Frage')
  submitted = st.form_submit_button('Submit')
  if submitted:
-    result = qa_chain({'question': query, 'chat_history': chat_history})
+    result = qa_chain({'question': text, 'chat_history': chat_history})
     st.write('Answer: ' + result['answer'])
     chat_history.append((query, result['answer']))
 
