@@ -169,8 +169,10 @@ qa_chain = ConversationalRetrievalChain.from_llm(
 
 chat_history = []
 
-st.sidebar.write(chat_history)
-
+add_selectbox = st.sidebar.selectbox(
+    "Historie",
+    chat_history
+)
 
 with st.form('my_form'):
  text = st.text_area('Deine Frage', '...')
