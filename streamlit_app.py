@@ -8,7 +8,7 @@ st.write('Ich bin eine Teständerung!')
 from dotenv import load_dotenv,find_dotenv
 load_dotenv(find_dotenv())
 
-# openai_api_key = st.sidebar.text_input('OpenAI API Key')
+openai_api_key = st.sidebar.text_input('OpenAI API Key')
 
 #def generate_response(input_text):
 #  llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
@@ -57,7 +57,7 @@ prompt = PromptTemplate(
      
 
 # Run LLM with PromptTemplate
-
+llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
 llm(prompt.format(concept="autoencoder"))
 llm(prompt.format(concept="regularization"))
 
