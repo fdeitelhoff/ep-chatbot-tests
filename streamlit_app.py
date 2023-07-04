@@ -123,27 +123,50 @@ st.write(query_result)
 
 # Do a simple vector similarity search
 
-query = "What is magical about an autoencoder?"
-result = search.similarity_search(query)
+# query = "What is magical about an autoencoder?"
+# result = search.similarity_search(query)
 
-print(result)
-st.write(result)
+# print(result)
+# st.write(result)
+
+from langchain.vectorstores import Chroma
+
+vectordb = Chroma.from_documents(
+  data,
+  embedding=embeddings,
+  persist_directory='./vector'
+)
+vectordb.persist()
+
+from langchain.chains import RetrievalQA
+# from langchain.llms import OpenAI
+
+qa_chain = RetrievalQA.from_chain_type(
+    llm=OpenAI(),
+    retriever=vectordb.as_retriever(search_kwargs={'k': 7}),
+    return_source_documents=True
+)
+
+# we can now execute queries against our Q&A chain
+result = qa_chain({'query': 'Who is the CV about?'})
+print(result['result'])
+st.write(result['result'])
 
 # Import Python REPL tool and instantiate Python agent
 
-from langchain.agents.agent_toolkits import create_python_agent
-from langchain.tools.python.tool import PythonREPLTool
-from langchain.python import PythonREPL
-from langchain.llms.openai import OpenAI
+# from langchain.agents.agent_toolkits import create_python_agent
+# from langchain.tools.python.tool import PythonREPLTool
+# from langchain.python import PythonREPL
+# from langchain.llms.openai import OpenAI
 
-agent_executor = create_python_agent(
-    llm=OpenAI(temperature=0, max_tokens=1000),
-    tool=PythonREPLTool(),
-    verbose=True
-)
+# agent_executor = create_python_agent(
+#     llm=OpenAI(temperature=0, max_tokens=1000),
+#     tool=PythonREPLTool(),
+#     verbose=True
+# )
      
 
 # Execute the Python agent
 
-test = agent_executor.run("Find the roots (zeros) if the quadratic function 3 * x**2 + 2*x -1")
-st.write(test)
+# test = agent_executor.run("Find the roots (zeros) if the quadratic function 3 * x**2 + 2*x -1")
+# st.write(test)
