@@ -165,25 +165,35 @@ qa_chain = ConversationalRetrievalChain.from_llm(
     return_source_documents=True
 )
 
-import sys
+# import sys
 
 chat_history = []
-while True:
-    # this prints to the terminal, and waits to accept an input from the user
-    query = input('Prompt: ')
-    # give us a way to exit the script
-    if query == "exit" or query == "quit" or query == "q":
-        print('Exiting')
-        sys.exit()
-    # we pass in the query to the LLM, and print out the response. As well as
-    # our query, the context of semantically relevant information from our
-    # vector store will be passed in, as well as list of our chat history
+
+
+with st.form('my_form'):
+ text = st.text_area('Enter text:', 'Deine Frage')
+ submitted = st.form_submit_button('Submit')
+ if submitted:
     result = qa_chain({'question': query, 'chat_history': chat_history})
-    print('Answer: ' + result['answer'])
-    # we build up the chat_history list, based on our question and response
-    # from the LLM, and the script then returns to the start of the loop
-    # and is again ready to accept user input.
+    st.write('Answer: ' + result['answer'])
     chat_history.append((query, result['answer']))
+
+# while True:
+#     # this prints to the terminal, and waits to accept an input from the user
+#     query = input('Prompt: ')
+#     # give us a way to exit the script
+#     if query == "exit" or query == "quit" or query == "q":
+#         print('Exiting')
+#         sys.exit()
+#     # we pass in the query to the LLM, and print out the response. As well as
+#     # our query, the context of semantically relevant information from our
+#     # vector store will be passed in, as well as list of our chat history
+#     result = qa_chain({'question': query, 'chat_history': chat_history})
+#     print('Answer: ' + result['answer'])
+#     # we build up the chat_history list, based on our question and response
+#     # from the LLM, and the script then returns to the start of the loop
+#     # and is again ready to accept user input.
+#     chat_history.append((query, result['answer']))
 
 # Import Python REPL tool and instantiate Python agent
 
