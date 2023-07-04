@@ -8,7 +8,7 @@ st.write('Ich bin eine Teständerung!')
 from dotenv import load_dotenv,find_dotenv
 load_dotenv(find_dotenv())
 
-openai_api_key = st.sidebar.text_input('OpenAI API Key')
+# openai_api_key = st.sidebar.text_input('OpenAI API Key')
 
 #def generate_response(input_text):
 #  llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
@@ -60,4 +60,70 @@ prompt = PromptTemplate(
 
 llm(prompt.format(concept="autoencoder"))
 llm(prompt.format(concept="regularization"))
+
+# Import LLMChain and define chain with language model and prompt as arguments.
+
+from langchain.chains import LLMChain
+chain = LLMChain(llm=llm, prompt=prompt)
+
+# Run the chain only specifying the input variable.
+print(chain.run("autoencoder"))
+
+# Define a second prompt 
+
+second_prompt = PromptTemplate(
+    input_variables=["ml_concept"],
+    template="Turn the concept description of {ml_concept} and explain it to me like I'm five in 500 words",
+)
+chain_two = LLMChain(llm=llm, prompt=second_prompt)
+
+# Define a sequential chain using the two chains above: the second chain takes the output of the first chain as input
+
+from langchain.chains import SimpleSequentialChain
+overall_chain = SimpleSequentialChain(chains=[chain, chain_two], verbose=True)
+
+# Run the chain specifying only the input variable for the first chain.
+explanation = overall_chain.run("autoencoder")
+print(explanation)
+
+# Import utility for splitting up texts and split up the explanation given above into document chunks
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size = 100,
+    chunk_overlap  = 0,
+)
+
+texts = text_splitter.create_documents([explanation])
+
+# Import and instantiate OpenAI embeddings
+
+from langchain.embeddings import OpenAIEmbeddings
+
+embeddings = OpenAIEmbeddings(model_name="ada")
+     
+
+# Turn the first text chunk into a vector with the embedding
+
+query_result = embeddings.embed_query(texts[0].page_content)
+print(query_result)
+
+# Import Python REPL tool and instantiate Python agent
+
+from langchain.agents.agent_toolkits import create_python_agent
+from langchain.tools.python.tool import PythonREPLTool
+from langchain.python import PythonREPL
+from langchain.llms.openai import OpenAI
+
+agent_executor = create_python_agent(
+    llm=OpenAI(temperature=0, max_tokens=1000),
+    tool=PythonREPLTool(),
+    verbose=True
+)
+     
+
+# Execute the Python agent
+
+agent_executor.run("Find the roots (zeros) if the quadratic function 3 * x**2 + 2*x -1")
 
