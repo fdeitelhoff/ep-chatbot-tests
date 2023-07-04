@@ -111,6 +111,14 @@ query_result = embeddings.embed_query(texts[0].page_content)
 print(query_result)
 st.write(query_result)
 
+# Do a simple vector similarity search
+
+query = "What is magical about an autoencoder?"
+result = search.similarity_search(query)
+
+print(result)
+st.write(result)
+
 # Import Python REPL tool and instantiate Python agent
 
 from langchain.agents.agent_toolkits import create_python_agent
