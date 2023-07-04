@@ -112,7 +112,7 @@ text_splitter = CharacterTextSplitter(chunk_size=700, chunk_overlap=100)
 documents = text_splitter.split_documents(data)
 st.write(documents)
 
-from langchain.embeddings import OpenAIEmbedding
+from langchain.embeddings import OpenAIEmbeddings
 
 embeddings = OpenAIEmbeddings()
      
