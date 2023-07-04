@@ -110,7 +110,7 @@ data = loader.load()
 
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 documents = text_splitter.split_documents(data)
-st.write(documents[0])
+# st.write(documents[0])
 
 from langchain.embeddings import OpenAIEmbeddings
 
