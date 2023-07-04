@@ -108,11 +108,11 @@ loader = Docx2txtLoader("data/test.docx")
 data = loader.load()
 st.write(data[0].page_content)
 
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+text_splitter = CharacterTextSplitter(chunk_size=700, chunk_overlap=100)
 documents = text_splitter.split_documents(data)
 st.write(documents)
 
-from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings import OpenAIEmbedding
 
 embeddings = OpenAIEmbeddings()
      
