@@ -5,7 +5,9 @@ st.title('🎈 App Name')
 
 st.write('Ich bin eine Teständerung!')
 
-openai_api_key = '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'
+openai_api_key = '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'
+
+st.write(openai_api_key)
 # st.sidebar.text_input('OpenAI API Key')
 
 def generate_response(input_text):
@@ -19,3 +21,6 @@ with st.form('my_form'):
     st.warning('Please enter your OpenAI API key!', icon='⚠')
   if submitted and openai_api_key.startswith('sk-'):
     generate_response(text)
+
+
+    
