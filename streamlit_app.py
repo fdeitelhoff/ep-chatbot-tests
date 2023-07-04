@@ -97,6 +97,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 texts = text_splitter.create_documents([explanation])
 
+st.write(texts)
 # Import and instantiate OpenAI embeddings
 
 from langchain.embeddings import OpenAIEmbeddings
@@ -108,6 +109,7 @@ embeddings = OpenAIEmbeddings()
 
 query_result = embeddings.embed_query(texts[0].page_content)
 print(query_result)
+st.write(query_result)
 
 # Import Python REPL tool and instantiate Python agent
 
