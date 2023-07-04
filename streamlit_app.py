@@ -5,7 +5,7 @@ st.title('🎈 App Name')
 
 st.write('Ich bin eine Teständerung!')
 
-openai_api_key = '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'
+openai_api_key = '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'
 
 st.write(openai_api_key)
 # st.sidebar.text_input('OpenAI API Key')
