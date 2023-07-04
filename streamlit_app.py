@@ -183,7 +183,7 @@ with st.form('my_form'):
     st.write(result['answer'])
     # st.write(result)
     chat_history.append((text, result['answer']))
-    print(chat_history)
+    # print(chat_history)
     # chat_history_display.append('Frage: '+ text)
 
 # while True:
