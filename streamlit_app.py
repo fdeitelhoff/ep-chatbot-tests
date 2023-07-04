@@ -58,8 +58,8 @@ prompt = PromptTemplate(
 
 # Run LLM with PromptTemplate
 llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
-llm(prompt.format(concept="autoencoder"))
-llm(prompt.format(concept="regularization"))
+# llm(prompt.format(concept="autoencoder"))
+# llm(prompt.format(concept="regularization"))
 
 # Import LLMChain and define chain with language model and prompt as arguments.
 
@@ -67,7 +67,7 @@ from langchain.chains import LLMChain
 chain = LLMChain(llm=llm, prompt=prompt)
 
 # Run the chain only specifying the input variable.
-print(chain.run("autoencoder"))
+# print(chain.run("autoencoder"))
 
 # Define a second prompt 
 
@@ -83,8 +83,8 @@ from langchain.chains import SimpleSequentialChain
 overall_chain = SimpleSequentialChain(chains=[chain, chain_two], verbose=True)
 
 # Run the chain specifying only the input variable for the first chain.
-explanation = overall_chain.run("autoencoder")
-print(explanation)
+# explanation = overall_chain.run("autoencoder")
+# print(explanation)
 
 # Import utility for splitting up texts and split up the explanation given above into document chunks
 
@@ -95,9 +95,9 @@ text_splitter = RecursiveCharacterTextSplitter(
     chunk_overlap  = 0,
 )
 
-texts = text_splitter.create_documents([explanation])
+# texts = text_splitter.create_documents([explanation])
 
-st.write(texts)
+# st.write(texts)
 # Import and instantiate OpenAI embeddings
 
 from langchain.document_loaders import Docx2txtLoader
