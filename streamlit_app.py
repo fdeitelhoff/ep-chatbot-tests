@@ -88,12 +88,12 @@ overall_chain = SimpleSequentialChain(chains=[chain, chain_two], verbose=True)
 
 # Import utility for splitting up texts and split up the explanation given above into document chunks
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+# from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size = 100,
-    chunk_overlap  = 0,
-)
+# text_splitter = RecursiveCharacterTextSplitter(
+#     chunk_size = 100,
+#     chunk_overlap  = 0,
+# )
 
 # texts = text_splitter.create_documents([explanation])
 
@@ -101,12 +101,16 @@ text_splitter = RecursiveCharacterTextSplitter(
 # Import and instantiate OpenAI embeddings
 
 from langchain.document_loaders import Docx2txtLoader
+from langchain.text_splitter import CharacterTextSplitter
 
 loader = Docx2txtLoader("data/test.docx")
 # st.write(loader)
 data = loader.load()
 st.write(data[0].page_content)
 
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+documents = text_splitter.split_documents(data)
+st.write(documents)
 
 from langchain.embeddings import OpenAIEmbeddings
 
@@ -115,9 +119,9 @@ embeddings = OpenAIEmbeddings()
 
 # Turn the first text chunk into a vector with the embedding
 
-query_result = embeddings.embed_query(data[0].page_content)
-print(query_result)
-st.write(query_result)
+#query_result = embeddings.embed_query(data[0].page_content)
+#print(query_result)
+#st.write(query_result)
 
 
 
@@ -132,7 +136,7 @@ st.write(query_result)
 from langchain.vectorstores import Chroma
 
 vectordb = Chroma.from_documents(
-  data,
+  documents,
   embedding=embeddings,
   persist_directory='./vector'
 )
