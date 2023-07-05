@@ -8,7 +8,7 @@ st.title('Chatbot Example for Documents')
 from dotenv import load_dotenv,find_dotenv
 load_dotenv(find_dotenv())
 
-openai_api_key = st.sidebar.text_input('OpenAI API Key')
+# openai_api_key = st.sidebar.text_input('OpenAI API Key')
 
 #def generate_response(input_text):
 #  llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
@@ -57,7 +57,7 @@ prompt = PromptTemplate(
      
 
 # Run LLM with PromptTemplate
-llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
+llm = OpenAI(temperature=0.7) # , openai_api_key=openai_api_key)
 # llm(prompt.format(concept="autoencoder"))
 # llm(prompt.format(concept="regularization"))
 
@@ -117,12 +117,12 @@ from langchain.document_loaders import PyPDFLoader
 
 documents = []
 
-st.write('Reading Documents...')
+st.write('Lese Dokumente ein...')
 
 for file in os.listdir("data"):
     if file.endswith(".pdf"):
         pdf_path = "data/" + file
-        st.write('Reading File: ' + pdf_path)
+        st.write('Lese Datei: ' + pdf_path)
         loader = PyPDFLoader(pdf_path)
         documents.extend(loader.load())
     # elif file.endswith('.docx') or file.endswith('.doc'):
@@ -136,7 +136,7 @@ for file in os.listdir("data"):
 
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 documents = text_splitter.split_documents(documents)
-st.write(documents[0])
+st.write(documents)
 
 from langchain.embeddings import OpenAIEmbeddings
 
