@@ -113,6 +113,7 @@ from langchain.text_splitter import CharacterTextSplitter
 # st.write(documents[0])
 
 import os
+from langchain.document_loaders import PyPDFLoader
 
 documents = []
 
