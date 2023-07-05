@@ -117,12 +117,12 @@ from langchain.document_loaders import PyPDFLoader
 
 documents = []
 
-st.write('Lese Dokumente ein...')
+# st.write('Lese Dokumente ein...')
 
 for file in os.listdir("data"):
     if file.endswith(".pdf"):
         pdf_path = "data/" + file
-        st.write('Lese Datei: ' + pdf_path)
+        st.write('Verarbeite Datei: ' + pdf_path)
         loader = PyPDFLoader(pdf_path)
         documents.extend(loader.load())
     # elif file.endswith('.docx') or file.endswith('.doc'):
@@ -136,7 +136,7 @@ for file in os.listdir("data"):
 
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 documents = text_splitter.split_documents(documents)
-st.write(documents)
+# st.write(documents)
 
 from langchain.embeddings import OpenAIEmbeddings
 
@@ -207,8 +207,9 @@ with st.form('my_form'):
  if submitted:
     result = qa_chain({'question': text, 'chat_history': chat_history})
     st.write(result['answer'])
-    # st.write(result)
+    st.write(result)
     chat_history.append((text, result['answer']))
+    st.write(chat_history)
     # print(chat_history)
     # chat_history_display.append('Frage: '+ text)
 
