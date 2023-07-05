@@ -116,6 +116,8 @@ import os
 
 documents = []
 
+st.write('Reading Documents...')
+
 for file in os.listdir("data"):
     if file.endswith(".pdf"):
         pdf_path = "data/" + file
