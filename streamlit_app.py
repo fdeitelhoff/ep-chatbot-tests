@@ -103,14 +103,37 @@ overall_chain = SimpleSequentialChain(chains=[chain, chain_two], verbose=True)
 from langchain.document_loaders import Docx2txtLoader
 from langchain.text_splitter import CharacterTextSplitter
 
-loader = Docx2txtLoader("data/test.docx")
+# loader = Docx2txtLoader("data/test.docx")
 # st.write(loader)
-data = loader.load()
+# data = loader.load()
 # st.write(data[0].page_content)
 
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-documents = text_splitter.split_documents(data)
+# text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+# documents = text_splitter.split_documents(data)
 # st.write(documents[0])
+
+import os
+
+documents = []
+
+for file in os.listdir("data"):
+    if file.endswith(".pdf"):
+        pdf_path = "data/" + file
+        st.write('Reading File: ' + pdf_path)
+        loader = PyPDFLoader(pdf_path)
+        documents.extend(loader.load())
+    # elif file.endswith('.docx') or file.endswith('.doc'):
+    #     doc_path = "./docs/" + file
+    #     loader = Docx2txtLoader(doc_path)
+    #     documents.extend(loader.load())
+    # elif file.endswith('.txt'):
+    #     text_path = "./docs/" + file
+    #     loader = TextLoader(text_path)
+    #     documents.extend(loader.load())
+
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+documents = text_splitter.split_documents(documents)
+st.write(documents[0])
 
 from langchain.embeddings import OpenAIEmbeddings
 
