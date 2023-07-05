@@ -209,7 +209,7 @@ with st.form('my_form'):
     st.write(result['answer'])
     st.write(result)
     chat_history.append((text, result['answer']))
-    st.write(chat_history)
+    # st.write(chat_history)
     # print(chat_history)
     # chat_history_display.append('Frage: '+ text)
 
