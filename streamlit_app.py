@@ -209,7 +209,7 @@ with st.form('my_form'):
     st.write(result['answer'])
     # st.write(result)
     chat_history.append((text, result['answer']))
-    st.write(result['source_documents'][0])
+    st.write(result['source_documents'][0].page)
     # st.write('Gefunden auf: ' + result['source_documents'][0].page)
     # st.write(chat_history)
     # print(chat_history)
