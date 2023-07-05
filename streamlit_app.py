@@ -212,7 +212,7 @@ with st.form('my_form'):
     st.write('Die Antwort basiert (unter anderem) auf diesem Text:')
     st.write(result['source_documents'][0].page_content)
     st.write('Datei: ' + result['source_documents'][0].metadata['source'])
-    # st.write('Seite: ' + result['source_documents'][0].metadata['page'])
+    st.write('Seite: ' + result['source_documents'][0].metadata['page'])
     # st.write(type(result['source_documents'][0]))
     # st.write('Gefunden auf: ' + result['source_documents'][0].page)
     # st.write(chat_history)
