@@ -186,7 +186,7 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 
 qa_chain = ConversationalRetrievalChain.from_llm(
-    ChatOpenAI({temperature: 0.7}),
+    ChatOpenAI(),
     vectordb.as_retriever(search_kwargs={'k': 6}),
     return_source_documents=True
 )
