@@ -207,8 +207,9 @@ with st.form('my_form'):
  if submitted:
     result = qa_chain({'question': text, 'chat_history': chat_history})
     st.write(result['answer'])
-    st.write(result)
+    # st.write(result)
     chat_history.append((text, result['answer']))
+    st.write('Gefunden auf: ' + result['source_documents'][0])
     # st.write(chat_history)
     # print(chat_history)
     # chat_history_display.append('Frage: '+ text)
